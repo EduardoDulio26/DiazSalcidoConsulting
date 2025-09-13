@@ -1,0 +1,45 @@
+:root{
+  --blue:#0B2C4A; --blue2:#164D7A; --gray:#E9ECEF; --black:#111; --white:#fff;
+  --radius:16px; --space:20px; --max:1100px;
+}
+*{box-sizing:border-box} body{margin:0;font:16px/1.5 system-ui,Inter,Arial}
+.container{max-width:var(--max);margin:0 auto;padding:0 var(--space)}
+
+.logo{width:28px;height:28px;margin-right:10px;vertical-align:middle}
+.nav{position:sticky;top:0;background:var(--white);border-bottom:1px solid #ddd;z-index:10}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;font-weight:700;color:var(--blue);text-decoration:none}
+.links a{margin-left:16px;text-decoration:none;color:#333}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid #ccc}
+.btn-primary{background:var(--blue);color:var(--white);border-color:var(--blue)}
+
+.hero{background:linear-gradient(180deg, var(--blue) 0%, var(--blue) 60%, #0b2c4a10 100%);color:var(--white);padding:80px 0}
+.hero-inner{max-width:800px}
+.hero h1{font-size:36px;margin:0 0 10px}
+.hero p{opacity:.9;margin:0 0 20px}
+
+.section{padding:64px 0}
+.section.alt{background:var(--gray)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--white);border:1px solid #eee;border-radius:var(--radius);padding:20px}
+.card h3{margin-top:0}
+.card ul{padding-left:18px;margin:0}
+.price{font-weight:700;margin:.5rem 0}
+
+.pill-list{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none}
+.pill-list li{background:#f2f4f6;border:1px solid #e5e7eb;padding:6px 10px;border-radius:999px}
+
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:700px}
+.form textarea{grid-column:1/-1}
+.form input,.form textarea{padding:12px;border-radius:10px;border:1px solid #d0d7de}
+
+.footer{background:#0b0b0b;color:#bbb;padding:24px 0}
+.footer .container{display:flex;flex-direction:column;gap:4px}
+.footer small{display:block}
+
+.sep{display:inline-block;width:8px}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+}

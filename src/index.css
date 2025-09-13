@@ -1,0 +1,281 @@
+:root{ --blue:#0B2C4A; --blue2:#164D7A; --gray:#E9ECEF; --black:#111; --white:#fff;
+  --radius:16px; --space:20px; --max:1360px;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.5 system-ui,Inter,Arial;color:#1f2937}
+.container{max-width:var(--max);margin:0 auto;padding:0 var(--space)}
+.logo{width:34px;height:34px;margin-right:10px;border-radius:6px;object-fit:cover}
+.nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;z-index:10}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;font-weight:700;color:var(--blue);text-decoration:none}
+.links a{margin-left:16px;text-decoration:none;color:#374151}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid #d1d5db}
+.btn-primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+h1{font-size:clamp(30px,4.2vw,46px)} h2{font-size:clamp(22px,3.2vw,34px)}
+.section{padding:80px 0} .section.alt{background:var(--gray)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:22px}
+.price{font-weight:700;margin:.5rem 0}
+
+/* HERO fijo */
+.hero{position:relative;min-height:78vh;display:flex;align-items:center;color:#fff}
+.hero.parallax{background:#0B2C4A url('/escritorio.jpg') center/cover fixed no-repeat;will-change:transform;}
+.hero.parallax::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,44,74,.78) 0%,rgba(11,44,74,.6) 55%,rgba(11,44,74,.15) 100%);}
+.hero-inner{position:relative;max-width:900px}
+
+/* Split contacto */
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:stretch}
+.media{position:relative;min-height:520px;border-radius:var(--radius);overflow:hidden;background:#0B2C4A url('/contacto.jpg') center/cover fixed no-repeat;border:1px solid #0b2c4a33}
+.media::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.46),rgba(11,44,74,.35));backdrop-filter:blur(1px)}
+.media-content{position:relative;color:#fff;padding:clamp(20px,5vw,48px);max-width:620px}
+.panel{background:#f7f9fc;border:1px solid #e5e7eb;border-radius:var(--radius);padding:clamp(22px,4.5vw,50px);box-shadow:0 10px 22px rgba(0,0,0,.04)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px}
+.form textarea{grid-column:1/-1}
+.form input,.form textarea{padding:12px;border-radius:10px;border:1px solid #d0d7de;background:#fff}
+
+/* Footer */
+.footer{background:#0b0b0b;color:#bbb;padding:28px 0}
+.footer .container{display:flex;flex-direction:column;gap:6px}
+
+/* Responsive + iOS fallback */
+@media (max-width:1100px){ .grid{grid-template-columns:1fr 1fr} }
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .media{min-height:320px;background-attachment:scroll}
+  .hero.parallax{background-attachment:scroll}
+}
+
+/* ---- CONTACTO con imagen de fondo fija (debajo del contenido) ---- */
+.contact-hero{
+  position:relative; overflow:hidden;
+  background:#0B2C4A url('/overlay.jpg') center/cover fixed no-repeat;
+}
+.contact-hero::before{
+  /* degradado tipo referencia (azul → teal → transparente) */
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(115deg, rgba(11,44,74,.85) 0%,
+                           rgba(15,108,143,.62) 48%,
+                           rgba(15,108,143,.25) 74%,
+                           rgba(15,108,143,0) 86%);
+  mix-blend-mode:multiply;
+}
+.contact-hero .container{ position:relative; z-index:1; }
+
+/* grid centrado con tarjeta a la derecha */
+.contact-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,560px);
+  gap:28px; align-items:center; justify-content:center;
+}
+.center{ justify-content:center; }
+
+.contact-copy{ color:#fff; max-width:640px; }
+.contact-list{ list-style:none; padding:0; margin:18px 0 0; }
+.contact-list li{ margin:6px 0; opacity:.95; }
+
+/* tarjeta del formulario */
+.panel{
+  background:#f7f9fc; border:1px solid #e5e7eb; border-radius:var(--radius);
+  padding:clamp(22px,4.5vw,50px); box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+.check{ display:flex; align-items:center; gap:8px; font-size:.95rem; margin:8px 0 12px; }
+.check a{ color:#0F6C8F; text-decoration:underline; }
+
+/* Responsivo + iOS fallback (sin fixed en móviles) */
+@media (max-width:900px){
+  .contact-grid{ grid-template-columns:1fr; }
+  .contact-hero{ background-attachment:scroll; } /* iOS */
+}
+
+/* ───────── Topbar ───────── */
+.topbar{
+  background: linear-gradient(90deg, #0B2C4A, #164D7A);
+  color:#fff; font-size:14px;
+}
+.topbar .container{
+  display:flex; align-items:center; justify-content:space-between; height:38px;
+}
+.topbar .topbar-right{ display:flex; align-items:center; gap:12px }
+.topbar .item{
+  display:inline-flex; align-items:center; gap:8px;
+  color:#fff; text-decoration:none; padding:4px 0;
+}
+.topbar .item svg{ width:16px; height:16px; fill:#fff }
+.topbar .item.wa{
+  background:#25D366; color:#fff; padding:4px 10px; border-radius:999px;
+  border:1px solid #1ea652;
+}
+@media (max-width:720px){
+  .topbar-left{ display:none }
+  .topbar .container{ justify-content:flex-end; gap:12px }
+}
+
+/* ───────── Ondas del Hero ───────── */
+.hero{ position:relative; overflow:hidden }
+.hero-waves{
+  position:absolute; left:0; right:0; bottom:-1px; height:120px;
+  line-height:0; pointer-events:none;
+}
+.hero-waves .wave{ position:absolute; left:0; width:100%; height:100% }
+.hero-waves .wave path{ transition:transform .3s ease }
+.wave-top path{ fill: rgba(255,255,255,.85); transform: translateY(0) }
+.wave-mid path{ fill: rgba(255,255,255,.92); transform: translateY(6px) }
+.wave-bot path{ fill: #fff; transform: translateY(12px) }
+
+/* (Ya tenías) HERO parallax con escritorio.jpg.
+   Si no lo tenías, asegúrate de tenerlo así: */
+.hero.parallax{
+  background:#0B2C4A url('/escritorio.jpg') center/cover fixed no-repeat;
+}
+@media (max-width:900px){
+  .hero.parallax{ background-attachment:scroll } /* iOS */
+}
+
+/* Botón WhatsApp (verde en el menú) */
+.wa-btn{
+  background:#25D366; color:#fff !important; border:1px solid #1da955;
+  box-shadow:0 6px 18px rgba(37,211,102,.35);
+}
+.wa-btn .icon{ width:18px; height:18px; fill:#fff }
+.wa-btn:hover{ filter:brightness(1.05); transform:translateY(-1px) }
+
+/* Scroll suave + offset para que el header NO tape las secciones */
+html{ scroll-behavior:smooth }
+:root{ --navH: 72px } /* alto de tu navbar; ajusta si cambias su height */
+
+#servicios, #nosotros, #paquetes, #contacto, #top{
+  scroll-margin-top: calc(var(--navH) + 12px);
+}
+
+/* (Por si tenías topbar, ya no se usa) */
+/* .topbar{ display:none } */
+
+/* ================================
+   Botones con "pulso" elegante
+   ================================ */
+
+/* Base de todos los botones */
+.btn{
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 10px;
+  border: 1px solid #d1d5db; background:#fff; color:#1f2937;
+  text-decoration: none; font-weight: 600;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  isolation: isolate; /* asegura que el aura quede debajo del contenido */
+}
+
+/* Aura (se dibuja "debajo" del botón y hace el pulso) */
+.btn::after{
+  content:""; position:absolute; inset:-2px; z-index:-1; border-radius: inherit;
+  background: radial-gradient(closest-side, var(--aura, rgba(15,108,143,.22)), transparent 70%);
+  opacity: 0; transform: scale(.85);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); filter: brightness(.98); }
+.btn:hover::after{ opacity:.9; animation: auraPulse 1.8s ease-out infinite; }
+
+/* Accesibilidad (tecla TAB) */
+.btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15,108,143,.35);
+}
+
+/* Variante primaria (azul) */
+.btn-primary{
+  background:#0B2C4A; color:#fff !important; border-color:#0B2C4A;
+  --aura: rgba(22,77,122,.30);
+}
+
+/* WhatsApp (verde) */
+.wa-btn{
+  background:#25D366; color:#fff !important; border-color:#1da955;
+  box-shadow: 0 6px 18px rgba(37,211,102,.28);
+  --aura: rgba(37,211,102,.35);
+}
+.btn-icon .icon{ width:18px; height:18px; fill:#fff }
+
+/* Variante secundaria (para botones claros que no son primarios) */
+.btn-secondary{
+  background:#f8fafc; color:#0B2C4A; border-color:#d7dee6;
+  --aura: rgba(15,108,143,.22);
+}
+
+/* Animación del pulso */
+@keyframes auraPulse{
+  0%   { transform: scale(.85); opacity:.55; }
+  70%  { transform: scale(1.45); opacity:0; }
+  100% { transform: scale(1.45); opacity:0; }
+}
+
+/* Reduce motion (respeta accesibilidad) */
+@media (prefers-reduced-motion: reduce){
+  .btn, .btn::after{ transition: none }
+  .btn:hover::after{ animation: none; opacity:0 }
+}
+
+/* ----- Paquetes: detalles visuales ----- */
+.plan-card { display: flex; flex-direction: column; }
+.plan-head { margin-bottom: 10px; }
+.plan-title { display: flex; align-items: center; gap: 10px; }
+.plan-card .chip{
+  display:inline-block; padding:4px 10px; border-radius:999px;
+  background:rgba(15,108,143,.10); border:1px solid rgba(15,108,143,.28);
+  color:#0B2C4A; font-weight:600; font-size:.8rem;
+}
+.card-actions{ margin-top: 14px; }
+
+/* Botón claro consistente */
+.btn.btn-secondary{
+  background:#f8fafc; color:#0B2C4A; border-color:#d7dee6;
+  --aura: rgba(15,108,143,.22);
+}
+
+/* ===== Botón de envío con estados & micro-animaciones ===== */
+.submit-btn{
+  position:relative; padding-right:50px; /* espacio para iconos a la derecha */
+  overflow:hidden;
+}
+.submit-btn .btn-label{ position:relative; z-index:1 }
+
+/* Spinner */
+.btn-spinner{
+  position:absolute; right:16px; top:50%; width:18px; height:18px; margin-top:-9px;
+  border:2px solid #fff; border-right-color:transparent; border-radius:50%;
+  opacity:0; transform:scale(.8);
+  transition:opacity .18s ease, transform .18s ease;
+}
+@keyframes spin{ to { transform: rotate(360deg) } }
+.submit-btn.loading .btn-spinner{ opacity:1; transform:scale(1); animation:spin .8s linear infinite }
+
+/* Check (éxito) */
+.btn-check{
+  position:absolute; right:16px; top:50%; width:22px; height:22px; margin-top:-11px;
+  stroke:#fff; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray: 36; stroke-dashoffset: 36; opacity:0;
+}
+@keyframes draw { to { stroke-dashoffset: 0 } }
+.submit-btn.success{ background:#16a34a; border-color:#16a34a; }
+.submit-btn.success .btn-check{ opacity:1; animation:draw .6s ease forwards }
+
+/* Cruz (error) + shake */
+.btn-cross{
+  position:absolute; right:16px; top:50%; width:20px; height:20px; margin-top:-10px;
+  stroke:#fff; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;
+  opacity:0;
+}
+@keyframes shake{
+  0%,100%{ transform: translateX(0) }
+  25%{ transform: translateX(-3px) }
+  50%{ transform: translateX(3px) }
+  75%{ transform: translateX(-2px) }
+}
+.submit-btn.error{ background:#b91c1c; border-color:#b91c1c; animation:shake .28s ease-out 1 }
+.submit-btn.error .btn-cross{ opacity:1 }
+
+/* Tamaño & accesibilidad */
+.btn-lg{ padding:12px 22px; border-radius:12px; font-size:1rem }
+.submit-btn:disabled{ cursor:not-allowed; opacity:.9 }
