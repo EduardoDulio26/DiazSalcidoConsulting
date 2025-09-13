@@ -1,26 +1,24 @@
-// api/contact.js  (Vercel Serverless Function)
-const nodemailer = require("nodemailer");
+/* eslint-env node */
+import nodemailer from "nodemailer";
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Solo POST
   if (req.method !== "POST") {
-    res.status(405).json({ ok: false, message: "Method not allowed" });
-    return;
+    return res.status(405).json({ ok: false, message: "Method not allowed" });
   }
 
   // Asegura body JSON
-  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
+  let body = req.body || {};
+  if (typeof body === "string") {
+    try { body = JSON.parse(body || "{}"); } catch { body = {}; }
+  }
   const { nombre, correo, telefono, mensaje, hp } = body;
 
   // Honeypot (bot)
-  if (hp) {
-    res.status(200).json({ ok: true });
-    return;
-  }
+  if (hp) return res.status(200).json({ ok: true });
 
   if (!nombre || !correo || !mensaje) {
-    res.status(400).json({ ok: false, message: "Faltan campos requeridos." });
-    return;
+    return res.status(400).json({ ok: false, message: "Faltan campos requeridos." });
   }
 
   try {
@@ -30,7 +28,7 @@ module.exports = async (req, res) => {
       auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_PASS },
     });
 
-    const to = process.env.RECEIVER_EMAIL || process.env.GMAIL_USER || "joseadriandiazsalcido6484@gmail.com";
+    const to = process.env.RECEIVER_EMAIL || process.env.GMAIL_USER;
     const html = `
       <h2>Nuevo mensaje desde la web</h2>
       <p><b>Nombre:</b> ${nombre}</p>
@@ -49,9 +47,9 @@ module.exports = async (req, res) => {
       html,
     });
 
-    res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ ok: false, message: "No se pudo enviar el correo." });
+    return res.status(500).json({ ok: false, message: "No se pudo enviar el correo." });
   }
-};
+}
