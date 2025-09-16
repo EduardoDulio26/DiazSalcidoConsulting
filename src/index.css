@@ -279,3 +279,119 @@ html{ scroll-behavior:smooth }
 /* Tamaño & accesibilidad */
 .btn-lg{ padding:12px 22px; border-radius:12px; font-size:1rem }
 .submit-btn:disabled{ cursor:not-allowed; opacity:.9 }
+
+/* ---- Layout base: anclas con offset del header ---- */
+:root{ --nav-h: 72px; }                 /* desktop */
+@media (max-width: 900px){ :root{ --nav-h: 84px; } } /* móvil: menú más alto */
+section[id]{ scroll-margin-top: calc(var(--nav-h) + 12px); }
+
+/* ---- Navbar ---- */
+.navbar{
+  position: sticky; top: 0; z-index: 50; background:#fff;
+  box-shadow: 0 2px 8px rgba(15,44,74,.06);
+  transition: box-shadow .2s ease, background .2s ease;
+}
+.navbar.is-scrolled{ box-shadow: 0 6px 18px rgba(15,44,74,.10) }
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height: var(--nav-h);
+}
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#0B2C4A; font-weight:700 }
+.brand img{ width:32px; height:32px; object-fit:cover; border-radius:6px }
+
+.menu-toggle{
+  display:none; width:42px; height:42px; border-radius:10px; border:1px solid #d7dee6;
+  background:#fff; align-items:center; justify-content:center; gap:5px;
+}
+.menu-toggle span{ display:block; width:20px; height:2px; background:#0B2C4A; transition: transform .2s, opacity .2s }
+.menu-toggle.is-open span:nth-child(1){ transform: translateY(6px) rotate(45deg) }
+.menu-toggle.is-open span:nth-child(2){ opacity:0 }
+.menu-toggle.is-open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg) }
+
+.nav-list{
+  display:flex; align-items:center; gap:16px; list-style:none; margin:0; padding:0;
+}
+.nav-list a{ color:#1a2b3c; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px }
+.nav-list a:hover{ background:#f3f6f9 }
+
+@media (max-width: 900px){
+  .menu-toggle{ display:flex }
+  .nav-list{
+    position: absolute; left:0; right:0; top: calc(var(--nav-h) - 8px);
+    background:#fff; border-top:1px solid #e5ecf2;
+    display:none; flex-direction:column; align-items:flex-start; gap:0;
+    padding:10px 20px 14px; box-shadow: 0 10px 30px rgba(15,44,74,.10);
+  }
+  .nav-list.is-open{ display:flex }
+  .nav-list li{ width:100% }
+  .nav-list a{ display:block; width:100% }
+}
+
+/* ---- WhatsApp botón y FAB ---- */
+.wa-btn{
+  background:#25D366; color:#fff; border-color:#1db954;
+}
+.hide-on-mobile{ display: block }
+.show-on-mobile{ display:none }
+@media (max-width: 900px){
+  .hide-on-mobile{ display:none }
+  .show-on-mobile{ display:block }
+}
+.wa-fab{
+  position: fixed; right: 14px; bottom: 18px; z-index: 60;
+  width:52px; height:52px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  background:#25D366; color:#fff; box-shadow: 0 10px 24px rgba(37,211,102,.45);
+}
+
+/* ---- Contraste de headings y fondos ---- */
+.section h2{ color:#0B2C4A }
+#paquetes{ background:#fff }            /* garantiza fondo claro detrás del título */
+
+/* ---- Formulario: sin resize y visual pulido ---- */
+.form-styled textarea.control{ resize: none; } /* sin redimensionar */
+.form-styled .control::placeholder{ color:#8493a6 }
+
+/* ---- Opt-out global de “auto dark mode” del UA ---- */
+:root{ color-scheme: light; }
+
+.icon-primary { color:#0B2C4A; }
+.icon-muted   { color:#6B7A8C; }
+.icon-success { color:#25D366; } /* WhatsApp */
+.li-ic { margin-right:8px; }
+.btn-ic{ margin-left:8px; }
+
+.contact-list { list-style: none; margin: 12px 0 24px; padding: 0; }
+.contact-list li { display: flex; align-items: center; gap: 8px; margin: 6px 0; color: #1a2b3c; }
+
+.li-ic { margin-right: 8px; }
+.btn-ic { margin-left: 8px; }
+
+.icon-primary { color: #0B2C4A; }
+.icon-success { color: #25D366; }
+.icon-muted   { color: #6B7A8C; }
+
+/* Chips de valores (Quiénes somos) */
+.values-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.values-chips .chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid #E6EEF6;
+  background:#fff;
+  color:#0B2C4A;
+  font-weight:600;
+  box-shadow: 0 1px 3px rgba(15,44,74,.05);
+}
+.values-chips .chip .ic{  /* icono dentro del chip */
+  margin-right:6px;
+  color:#0B2C4A;          /* se tiñe con currentColor */
+}
+
