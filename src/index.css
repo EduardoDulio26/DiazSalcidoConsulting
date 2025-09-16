@@ -395,3 +395,322 @@ section[id]{ scroll-margin-top: calc(var(--nav-h) + 12px); }
   color:#0B2C4A;          /* se tiñe con currentColor */
 }
 
+/* ------ Contact layout ------ */
+.contact-wrap{ padding-bottom: 120px; } /* evita que el FAB de WA tape el botón */
+@media (max-width:900px){ .contact-wrap{ padding-bottom: 140px; } }
+
+.contact-layout{
+  display:grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 900px){
+  .contact-layout{ grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* Info de contacto */
+.contact-info p{ margin: 0 0 12px; color:#1a2b3c }
+.contact-list{ list-style: none; margin: 12px 0 0; padding:0; }
+.contact-list li{ display:flex; align-items:center; gap:8px; margin: 8px 0; color:#1a2b3c; }
+
+/* Formulario */
+.form-styled .form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width:900px){
+  .form-styled .form-grid{ grid-template-columns: 1fr; }
+}
+
+.form-styled .full{ grid-column: 1 / -1; }
+
+.form-styled .control{
+  width:100%;
+  padding: 12px 14px;
+  border:1px solid #d7dee6;
+  border-radius: 12px;
+  background:#fff;
+  font-size:16px;
+  line-height:1.2;
+}
+.form-styled textarea.control{
+  min-height: 150px;
+  resize: none; /* para que no se descuadre */
+}
+.form-styled .control::placeholder{ color:#8a98a9; }
+
+.form-styled .check{
+  display:flex; align-items:center; gap:10px;
+  color:#324454; font-size:14px;
+}
+.form-styled .check input{ accent-color:#0B2C4A; }
+.form-styled .check a{ color:#0B2C4A; text-decoration:underline; }
+
+.form-styled .actions{ display:flex; align-items:center; gap:10px; }
+.btn.primary{ background:#0B2C4A; color:#fff; }
+
+/* Icon helpers */
+.li-ic { margin-right: 8px; }
+.btn-ic{ margin-left: 8px; }
+.icon-primary { color:#0B2C4A; }
+.icon-success { color:#25D366; }
+.icon-muted   { color:#6B7A8C; }
+
+/* ====== Paquetes ====== */
+.packages-grid{
+  display:grid;
+  gap:16px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width: 1000px){
+  .packages-grid{ grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 640px){
+  .packages-grid{ grid-template-columns: 1fr; }
+}
+
+.pkg-card{
+  position:relative;
+  padding:18px 16px 14px;
+  border:1px solid #E6EEF6;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(15,44,74,.06);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.pkg-icon{
+  position:absolute;
+  top:-18px; left:16px;
+  width:44px; height:44px;
+  border-radius:12px;
+  background:#0B2C4A10; /* suave */
+  display:flex; align-items:center; justify-content:center;
+}
+.pkg-icon .ic{ color:#0B2C4A; }
+
+.pkg-head h3{ margin:14px 0 0; }
+.pkg-price{ margin:2px 0 6px; color:#6B7A8C; font-weight:600; }
+
+.pkg-list{ margin:0 0 8px 18px; }
+.pkg-list li{ margin:4px 0; }
+
+.pkg-card .btn{
+  align-self:flex-start;
+}
+
+/* ===== Contacto: fondo + overlay + efecto fijo ===== */
+.contact-wrap{
+  position: relative;
+  /* usa tu imagen (ya la tenías como escritorio.jpg en /public) */
+  background: url("/overlay.jpg") center / cover no-repeat fixed;
+  /* más “aire” para que luzca y no tape el FAB de WhatsApp */
+  padding-top: 56px;
+  padding-bottom: 140px;
+}
+@media (max-width: 900px){
+  .contact-wrap{ padding-top: 40px; padding-bottom: 160px; }
+}
+
+/* capa oscura sutil tipo MG */
+.contact-wrap::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(11,44,74,.55), rgba(11,44,74,.35));
+}
+
+/* que el contenido quede por encima del overlay */
+.contact-wrap > .container{ position: relative; z-index: 1; }
+
+/* (opcional) si quieres que el bloque de formulario parezca “tarjeta” sobre el fondo */
+.form-styled{
+  background:#ffffffE6;
+  backdrop-filter: blur(2px);
+  border:1px solid #E6EEF6;
+  border-radius:16px;
+  padding:16px;
+}
+@media (max-width:900px){
+  .form-styled{ padding:12px; }
+}
+/* ===== CONTACTO: fondo, overlay y layout ===== */
+.contact-wrap{
+  position: relative;
+  background: url("/escritorio.jpg") center / cover no-repeat fixed;
+  padding-top: 56px;
+  padding-bottom: 160px; /* que no tape el FAB de WhatsApp */
+}
+@media (max-width: 900px){
+  .contact-wrap{ padding-top: 40px; padding-bottom: 180px; }
+}
+
+/* oscurece más del lado izquierdo para que el texto destaque */
+.contact-wrap::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(
+    90deg,
+    rgba(11,44,74,.68) 0%,
+    rgba(11,44,74,.52) 40%,
+    rgba(11,44,74,.28) 100%
+  );
+}
+.contact-wrap > .container{ position: relative; z-index: 1; }
+
+/* ===== layout 2 columnas (info izquierda / form derecha) ===== */
+.contact-layout{
+  display:grid;
+  grid-template-columns: 1.1fr 1fr; /* form un poco más compacto */
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 1000px){ .contact-layout{ grid-template-columns: 1fr; gap: 18px; } }
+
+/* ===== info izquierda: texto claro sobre imagen ===== */
+.contact-info p,
+.contact-info,
+.contact-list li{
+  color: #EAF2F8;                 /* claro */
+  text-shadow: 0 1px 1px rgba(0,0,0,.25); /* mejora contraste */
+}
+.contact-list{ list-style:none; margin:12px 0 0; padding:0; }
+.contact-list li{ display:flex; align-items:center; gap:8px; margin:8px 0; }
+.contact-info a{ color:#FFFFFF; text-decoration: underline; }
+
+/* ===== tarjeta del formulario (alineada a la derecha) ===== */
+.form-styled{
+  background:#ffffffF2;           /* tarjeta blanca con leve transparencia */
+  backdrop-filter: blur(2px);
+  border:1px solid #E6EEF6;
+  border-radius:20px;
+  padding:20px;
+  width: 100%;
+  max-width: 760px;               /* ancho cómodo tipo ejemplo */
+  justify-self: end;              /* pega a la derecha del grid */
+  box-shadow: 0 10px 30px rgba(15,44,74,.15);
+}
+@media (max-width: 1000px){
+  .form-styled{ justify-self: stretch; max-width: none; }
+}
+
+/* encabezado dentro del form (como en la captura) */
+.form-head h3{
+  margin: 0 0 4px;
+  font-weight: 800;
+  font-size: 22px;
+  color: #0B2C4A;
+}
+.form-head p{
+  margin: 0 0 12px;
+  color: #5a6b7d;
+}
+
+/* grilla del form */
+.form-styled .form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width:900px){ .form-styled .form-grid{ grid-template-columns: 1fr; } }
+.form-styled .full{ grid-column: 1 / -1; }
+
+/* inputs “grandes” */
+.form-styled .control{
+  width:100%;
+  height: 48px;
+  padding: 12px 14px;
+  border:1.5px solid #d7dee6;
+  border-radius: 14px;
+  background:#fff;
+  font-size:16px;
+  line-height:1.2;
+}
+.form-styled textarea.control{
+  min-height: 150px;
+  height: auto;
+  padding-top: 12px;
+  resize: none;                   /* que no se descuadre */
+}
+.form-styled .control::placeholder{ color:#8aa0b4; }
+
+/* focus accesible */
+.form-styled .control:focus{
+  outline: none;
+  border-color:#0B2C4A;
+  box-shadow: 0 0 0 3px rgba(11,44,74,.12);
+}
+
+/* checkbox + link */
+.form-styled .check{
+  display:flex; align-items:center; gap:10px;
+  color:#324454; font-size:14px;
+}
+.form-styled .check input{ accent-color:#0B2C4A; }
+.form-styled .check a{ color:#0B2C4A; text-decoration:underline; }
+
+/* acciones */
+.form-styled .actions{ display:flex; gap:10px; }
+.btn.primary{ background:#0B2C4A; color:#fff; }
+.btn.primary:hover{ filter: brightness(1.05); }
+
+/* ===== Paquetes: icono ya no absolute (por si no pegaste antes) ===== */
+.pkg-icon{
+  position: static;
+  width:44px; height:44px;
+  border-radius:12px;
+  background:#0B2C4A10;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:8px;
+}
+.pkg-icon .ic{ color:#0B2C4A; }
+
+/* centrar título y subtítulo del formulario */
+.form-head{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.form-head h3{
+  margin: 0 0 4px;
+}
+.form-head p{
+  margin: 0 0 12px;
+}
+/* aclarar íconos PNG (teléfono y correo) sobre fondo oscuro */
+.ic--light{
+  /* vuelve blanco el png y le da un leve relieve */
+  filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0,0,0,.35));
+  opacity: .95;
+}
+/* título/subtítulo centrados */
+.form-head{ text-align:center; margin-bottom:10px; }
+.form-head h3{ margin:0 0 4px; }
+.form-head p{ margin:0 0 12px; }
+
+/* centra checkbox y botón */
+.form-styled .check.center{ justify-content:center; }
+.form-styled .actions.center{ justify-content:center; }
+.form-styled .check{ display:flex; align-items:center; gap:10px; }
+
+/* contador del textarea */
+.char-counter{
+  margin-top:6px;
+  text-align:right;
+  font-size:12px;
+  color:#6b7a8c;
+}
+
+/* mensaje debajo del botón, centrado */
+.form-status{ margin-top:10px; font-weight:600; }
+.form-status.center{ text-align:center; }
+.form-status.ok{ color:#1e7f4d; }
+.form-status.error{ color:#b02a37; }
+
+/* (por claridad, por si aún no está) íconos claros sobre fondo oscuro */
+.ic--light{
+  filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0,0,0,.35));
+  opacity:.95;
+}
