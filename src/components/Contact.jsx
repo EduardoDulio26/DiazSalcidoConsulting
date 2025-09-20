@@ -13,8 +13,11 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null); // {type:'ok'|'error', text:''}
 
-  // Pre-relleno desde "Solicitar"
+  // Honeypot para bots (campo oculto que los humanos no rellenan)
+  const [hp, setHp] = useState("");
+
   useEffect(() => {
+    // Pre-relleno si vienen desde "Solicitar" en Paquetes
     const fromStorage = readAndClearPrefill();
     if (fromStorage) setMensaje(fromStorage);
 
@@ -28,8 +31,8 @@ export default function Contact() {
     setMensaje(v);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (ev) => {
+    ev.preventDefault();
     setStatus(null);
 
     if (!accepted) {
@@ -39,17 +42,28 @@ export default function Contact() {
 
     setSending(true);
     try {
-      const r = await fetch("/api/contact", {
+      const resp = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, correo, telefono, mensaje }),
+        body: JSON.stringify({ nombre, correo, telefono, mensaje, hp }),
       });
-      const data = await r.json().catch(() => ({}));
-      if (!r.ok || !data.ok) throw new Error(data.message || "Error");
+
+      let data = {};
+      try {
+        data = await resp.json();
+      } catch {
+        data = {};
+      }
+
+      if (!resp.ok || !data.ok) {
+        throw new Error(data.message || "Error");
+      }
 
       setStatus({ type: "ok", text: "¡Gracias! Nos pondremos en contacto en breve." });
-      setNombre(""); setCorreo(""); setTelefono("");
-      // conservamos "mensaje" por si quieren editarlo
+      setNombre("");
+      setCorreo("");
+      setTelefono("");
+      // Conservamos el mensaje por si quieren editar/reenviar
     } catch {
       setStatus({ type: "error", text: "No se pudo enviar. Inténtalo nuevamente." });
     } finally {
@@ -63,9 +77,7 @@ export default function Contact() {
         <div className="contact-layout">
           {/* Columna izquierda: info */}
           <div className="contact-info">
-            <p>
-              Brindamos información clara para que tu empresa encuentre soluciones a la medida.
-            </p>
+            <p>Brindamos información clara para que tu empresa encuentre soluciones a la medida.</p>
             <ul className="contact-list">
               <li>
                 <Icon name="phone-call" ext="png" size={18} className="ic ic--light" />
@@ -82,12 +94,23 @@ export default function Contact() {
             </ul>
           </div>
 
-          {/* Formulario (tarjeta a la derecha) */}
-          <form className="form-styled" onSubmit={onSubmit}>
-            <div className="form-head">
+          {/* Formulario derecha */}
+          <form className="form-styled" onSubmit={onSubmit} noValidate>
+            <div className="form-head center">
               <h3>Recibe más información</h3>
               <p>Déjanos tus datos y te contactaremos en breve.</p>
             </div>
+
+            {/* Honeypot (oculto) */}
+            <input
+              type="text"
+              name="company"
+              autoComplete="off"
+              tabIndex={-1}
+              value={hp}
+              onChange={(e) => setHp(e.target.value)}
+              style={{ position: "absolute", left: "-9999px", opacity: 0 }}
+            />
 
             <div className="form-grid">
               <input
@@ -148,9 +171,7 @@ export default function Contact() {
               </button>
             </div>
 
-            {status && (
-              <p className={`form-status ${status.type} center`}>{status.text}</p>
-            )}
+            {status && <p className={`form-status ${status.type} center`}>{status.text}</p>}
           </form>
         </div>
       </div>
